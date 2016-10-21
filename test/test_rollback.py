@@ -1,7 +1,7 @@
 import unittest
 from contextlib import contextmanager
 
-import rollback
+from rollback import rollback
 from unittest.mock import MagicMock
 
 
