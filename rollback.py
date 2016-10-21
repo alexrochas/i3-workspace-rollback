@@ -1,31 +1,28 @@
 import i3ipc
 
 WORKSPACE_STACK = []
+WORKSPACE_STACK_SIZE = 0
+
+
+def set_workspace_stack_size(size):
+    global WORKSPACE_STACK_SIZE
+    WORKSPACE_STACK_SIZE = size
 
 
 # Define a callback to be called when you switch workspaces.
 def on_workspace_focus(i3, e):
-    if len(WORKSPACE_STACK) == 0:
+    if len(WORKSPACE_STACK) < WORKSPACE_STACK_SIZE:
+        pass
+    elif len(WORKSPACE_STACK) >= WORKSPACE_STACK_SIZE:
         WORKSPACE_STACK.append(e.old)
-        WORKSPACE_STACK.append(e.current)
-    if e.current and e.old:
-        if e.current.name == e.old.name:
-            return
-        elif e.current.name == WORKSPACE_STACK[-1].name:
-            return
-        else:
-            WORKSPACE_STACK.append(e.current)
+    set_workspace_stack_size(len(WORKSPACE_STACK))
     print([wspace.name for wspace in WORKSPACE_STACK])
 
 
 def on_keys(i3, e):
     if e.binding.symbol == 'z' and 'Mod4' in e.binding.mods and WORKSPACE_STACK:
         print([wspace.name for wspace in WORKSPACE_STACK])
-        if WORKSPACE_STACK and len(WORKSPACE_STACK) == 1:
-            i3.command('workspace %s' % WORKSPACE_STACK[0].name)
-            return
-        elif WORKSPACE_STACK:
-            WORKSPACE_STACK.pop()  # FIXME workaround
+        if len(WORKSPACE_STACK) > 0:
             print('Rollback to workspace %s' % WORKSPACE_STACK[-1].name)
             i3.command('workspace %s' % WORKSPACE_STACK.pop().name)
 
