@@ -31,6 +31,7 @@ class TestRollback(unittest.TestCase):
         with rollback_event() as (i3, event):
             mocked_worspace = MagicMock()
             mocked_worspace.name = 'random name'
+            rollback.set_workspace_stack_size(0)
             rollback.WORKSPACE_STACK = [mocked_worspace]
 
         i3.command.assert_called_with('workspace random name')
@@ -40,13 +41,13 @@ class TestRollback(unittest.TestCase):
             mocked_worspace = MagicMock()
             mocked_worspace.name = 'random name'
             rollback.WORKSPACE_STACK = []
+            rollback.set_workspace_stack_size(0)
             event = MagicMock()
             event.binding.symbol = 'z'
             event.binding.mods = ['Mod4']
             event.old = mocked_worspace
-            event.current = mocked_worspace
 
-        self.assertEqual(len(rollback.WORKSPACE_STACK), 2)
+        self.assertEqual(len(rollback.WORKSPACE_STACK), 1)
 
     def test_should_rollback_one_workspace(self):
         with rollback_event() as (i3, event):
@@ -59,5 +60,6 @@ class TestRollback(unittest.TestCase):
             mocked_worspace4 = MagicMock()
             mocked_worspace4.name = 'random name 4'
             rollback.WORKSPACE_STACK = [mocked_worspace1, mocked_worspace2, mocked_worspace3, mocked_worspace4]
+            rollback.set_workspace_stack_size(4)
 
         self.assertEqual(len(rollback.WORKSPACE_STACK), 3)
