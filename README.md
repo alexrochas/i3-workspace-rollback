@@ -9,7 +9,7 @@
 Install with pip
 
 ```
-pip3 install static_response_server
+pip3 install i3-workspace-rollback
 ```
 
 Once installed you should add to your i3 config
