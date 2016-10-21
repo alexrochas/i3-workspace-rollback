@@ -6,22 +6,32 @@
 
 ## Installation 
 
-Once I discover how to install and ship it, I swear that I will write it here
+Install with pip
+
+```
+pip3 install static_response_server
+```
+
+Once installed you should add to your i3 config
+
+```
+exec i3-workspace-rollback
+```
 
 ## Usage example
 
-With this plugin, you will be able to switch between workspaces and when needed go back to last workspace just press, at least for now, <Mod4>+z.
+With this plugin, you will be able to switch between workspaces and when needed go back to last workspace just press, at least for now, \<Mod4>+z.
 
 ## Roadmap
 
 * Customizable binding keys
-* Installation how-to
-* Bug when you have only two workspaces in the stack
+* Installation how-to (done?)
+* Bug when you have only two workspaces in the stack (fixed)
 * Bug to define a max amount of workspaces in the stack
 
 ## Release History
 
-* 0.0.1
+* 0.1.1
     * Work in progress.
 
 ## Meta
