@@ -34,7 +34,7 @@ def on_keys(i3, e):
             i3.command('workspace %s' % WORKSPACE_STACK.pop().name)
 
 
-if __name__ == '__main__':
+def start():
     # Create the Connection object that can be used to send commands and subscribe
     # to events.
     i3 = i3ipc.Connection()
@@ -44,3 +44,7 @@ if __name__ == '__main__':
 
     # Start the main loop and wait for events to come in.
     i3.main()
+
+
+if __name__ == '__main__':
+    start()
